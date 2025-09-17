@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Gallery Online — Thơ Xuân Diệu (Demo)</title>
+  <style>
+    :root{
+      --bg:#f6fbff; --card:#fff; --muted:#556; --accent:#0b74de;
+      --radius:12px;
+    }
+    body{font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; margin:0; background:var(--bg); color:#122; padding:20px;}
+    .wrap{max-width:920px; margin:0 auto;}
+    header{display:flex; gap:14px; align-items:center; margin-bottom:18px;}
+    .logo{width:64px; height:64px; border-radius:14px; background:linear-gradient(135deg,#ffd87a,#ffd06a); display:flex; align-items:center; justify-content:center; font-weight:700; color:#123; font-size:20px;}
+    h1{margin:0; font-size:1.4rem;}
+    .meta{color:var(--muted); font-size:0.95rem;}
+    .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:18px;}
+    .card{background:var(--card); padding:14px; border-radius:var(--radius); box-shadow:0 6px 18px rgba(10,20,40,0.06); display:flex; gap:12px; align-items:flex-start;}
+    .ill{width:120px; flex:0 0 120px;}
+    .content{flex:1;}
+    .title{font-weight:700; margin-bottom:6px;}
+    .excerpt{color:#233; line-height:1.6; min-height:3.6em; margin-bottom:8px; font-size:0.98rem;}
+    .controls{display:flex; gap:8px; align-items:center;}
+    .btn{background:var(--accent); color:white; padding:8px 10px; border-radius:10px; text-decoration:none; cursor:pointer; border:none;}
+    .btn.secondary{background:#eee; color:#333;}
+    .small{font-size:0.85rem; color:var(--muted); margin-left:auto;}
+    /* Reveal animation */
+    .line{opacity:0; transform:translateY(6px); transition:opacity .35s ease, transform .35s ease;}
+    .line.show{opacity:1; transform:translateY(0);}
+    /* Map */
+    .tour{margin-top:22px; background:linear-gradient(180deg,#fff,#fbfdff); padding:14px; border-radius:12px; box-shadow:0 6px 18px rgba(10,20,40,0.04);}
+    iframe{width:100%; height:360px; border-radius:8px; border:0; margin-top:10px;}
+    footer{margin-top:18px; color:var(--muted); font-size:0.9rem;}
+    @media (max-width:720px){ .grid{grid-template-columns:1fr;} .ill{display:none;} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">XD</div>
+      <div>
+        <h1>Gallery Online — Thơ Xuân Diệu (Demo)</h1>
+        <div class="meta">Trích đoạn ngắn, minh hoạ vector, hiệu ứng chữ (dành cho trình chiếu / điện thoại).</div>
+      </div>
+    </header>
+
+    <div class="grid">
+      <!-- Card Vội vàng -->
+      <div class="card">
+        <div class="ill" aria-hidden>
+          <!-- sun + leaf SVG -->
+          <svg viewBox="0 0 120 120" width="120" height="120" xmlns="http://www.w3.org/2000/svg">
+            <rect width="120" height="120" rx="12" fill="#fff9ef"/>
+            <g transform="translate(8,8)">
+              <circle cx="44" cy="36" r="18" fill="#ffd87a"/>
+              <path d="M8 100 Q44 20 80 100" fill="none" stroke="#ffd06a" stroke-width="6" stroke-linecap="round"/>
+              <g transform="translate(10,72)">
+                <path d="M8 12 Q18 0 28 12 Q18 8 8 12" fill="#c6e7b8"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div class="content">
+          <div class="title">Vội vàng — (trích ngắn)</div>
+          <div class="excerpt" id="ex1">
+            <!-- placeholder lines will be inserted by JS -->
+          </div>
+          <div class="controls">
+            <button class="btn" onclick="reveal(1)">Xem thơ</button>
+            <button class="btn secondary" onclick="resetCard(1)">Đặt lại</button>
+            <div class="small">Nhấn để hiện từng dòng</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card Yêu -->
+      <div class="card">
+        <div class="ill" aria-hidden>
+          <!-- heart SVG -->
+          <svg viewBox="0 0 120 120" width="120" height="120" xmlns="http://www.w3.org/2000/svg">
+            <rect width="120" height="120" rx="12" fill="#fff7f9"/>
+            <g transform="translate(8,8)">
+              <path d="M44 28 C44 20 60 16 66 28 C72 16 88 20 88 28 C88 52 44 76 44 76 C44 76 0 52 0 28 C0 20 16 16 22 28 C28 16 44 20 44 28 Z" fill="#ffd6e0" transform="translate(14,4)"/>
+              <circle cx="12" cy="92" r="4" fill="#ff7890"/>
+            </g>
+          </svg>
+        </div>
+        <div class="content">
+          <div class="title">Yêu — (trích ngắn)</div>
+          <div class="excerpt" id="ex2"></div>
+          <div class="controls">
+            <button class="btn" onclick="reveal(2)">Xem thơ</button>
+            <button class="btn secondary" onclick="resetCard(2)">Đặt lại</button>
+            <div class="small">Chạm để trải nghiệm</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card Biển -->
+      <div class="card">
+        <div class="ill" aria-hidden>
+          <!-- wave SVG -->
+          <svg viewBox="0 0 120 120" width="120" height="120" xmlns="http://www.w3.org/2000/svg">
+            <rect width="120" height="120" rx="12" fill="#f3fff8"/>
+            <g transform="translate(8,8)">
+              <path d="M0 64 Q24 20 48 64 T96 64" stroke="#69b4d8" stroke-width="8" fill="none" stroke-linecap="round"/>
+              <circle cx="88" cy="26" r="10" fill="#ffd87a"/>
+            </g>
+          </svg>
+        </div>
+        <div class="content">
+          <div class="title">Biển — (trích ngắn)</div>
+          <div class="excerpt" id="ex3"></div>
+          <div class="controls">
+            <button class="btn" onclick="reveal(3)">Xem thơ</button>
+            <button class="btn secondary" onclick="resetCard(3)">Đặt lại</button>
+            <div class="small">Đọc từng câu</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card Tương tư chiều -->
+      <div class="card">
+        <div class="ill" aria-hidden>
+          <!-- sunset SVG -->
+          <svg viewBox="0 0 120 120" width="120" height="120" xmlns="http://www.w3.org/2000/svg">
+            <rect width="120" height="120" rx="12" fill="#fff7ec"/>
+            <g transform="translate(8,8)">
+              <circle cx="60" cy="36" r="18" fill="#ffbd66"/>
+              <path d="M0 88 Q36 30 72 88 T120 88" stroke="#f0b68f" stroke-width="6" fill="none"/>
+            </g>
+          </svg>
+        </div>
+        <div class="content">
+          <div class="title">Tương tư chiều — (trích ngắn)</div>
+          <div class="excerpt" id="ex4"></div>
+          <div class="controls">
+            <button class="btn" onclick="reveal(4)">Xem thơ</button>
+            <button class="btn secondary" onclick="resetCard(4)">Đặt lại</button>
+            <div class="small">Tối giản & dễ đọc</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tour Section -->
+    <div class="tour">
+      <h3>Thông tin tour — Theo dấu Xuân Diệu</h3>
+      <p><strong>Tuy Phước, Bình Định</strong> — Quê hương nhà thơ; <strong>Hà Nội</strong> — nơi Xuân Diệu sinh hoạt văn nghệ và sáng tác.</p>
+      <p>Gợi ý hoạt động tour: tham quan di tích, nghe kể chuyện, đọc thơ trực tiếp tại điểm dừng. Quét QR tại mỗi điểm để mở bài thơ liên quan.</p>
+      <!-- Embedded Google My Maps (public map) -->
+      <iframe src="https://www.google.com/maps/d/embed?mid=1TdXMeaVtCrjZdLQyiOT4-LtzOB6X-3I"></iframe>
+      <p style="margin-top:10px"><a class="btn" href="https://www.google.com/maps/d/viewer?mid=1TdXMeaVtCrjZdLQyiOT4-LtzOB6X-3I" target="_blank">Xem bản đồ lớn</a></p>
+    </div>
+
+    <footer>
+      <p>Demo dành cho mục trình bày nhóm — bạn có thể thay thế các trích đoạn ngắn bằng văn bản nhóm cung cấp (nếu có quyền).</p>
+    </footer>
+  </div>
+
+  <script>
+    // Short excerpts — keep each line short (<90 chars). If you have the group's licensed excerpts,
+    // paste them into these arrays (each entry is one line shown sequentially).
+    const excerpts = {
+      1: ["Tôi muốn tắt nắng đi", "Cho màu đừng nhạt mất;", "Tôi muốn buộc gió lại", "Cho hương đừng bay đi."],
+      2: ["Yêu là chết ở trong lòng một ít,", "Là vùi thây nhau một chút, hoang tàn."],
+      3: ["Biển! Tôi thương kẻ ở giữa trời biển,", "Sóng về mang theo tiếng nhớ bờ xa."],
+      4: ["Chiều bỗng nhớ người như thể đã quen,", "Bóng đi vội vàng trong nắng ngả nghiêng."]
+    };
+
+    // Function to render lines into card container as hidden lines
+    function renderCard(id){
+      const container = document.getElementById('ex' + id);
+      container.innerHTML = ''; // clear
+      const lines = excerpts[id] || ["[Dán trích đoạn ở đây]"];
+      lines.forEach((ln, idx) => {
+        const div = document.createElement('div');
+        div.className = 'line';
+        div.textContent = ln;
+        container.appendChild(div);
+      });
+    }
+
+    // Initial render
+    [1,2,3,4].forEach(renderCard);
+
+    // Reveal lines one-by-one with delay
+    function reveal(id){
+      const container = document.getElementById('ex' + id);
+      const lines = Array.from(container.querySelectorAll('.line'));
+      lines.forEach(l => l.classList.remove('show'));
+      lines.forEach((l, i) => {
+        setTimeout(() => l.classList.add('show'), i * 600);
+      });
+    }
+
+    function resetCard(id){
+      const container = document.getElementById('ex' + id);
+      const lines = Array.from(container.querySelectorAll('.line'));
+      lines.forEach(l => l.classList.remove('show'));
+    }
+
+    // For small screens, tap whole card to reveal
+    document.querySelectorAll('.card').forEach((c, idx) => {
+      c.addEventListener('click', (e) => {
+        // avoid double trigger if button clicked
+        if(e.target.tagName.toLowerCase() === 'button') return;
+        reveal(idx+1);
+      });
+    });
+  </script>
+</body>
+</html>
