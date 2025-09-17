@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Gallery Vintage — Thơ Xuân Diệu (Hoàn chỉnh)</title>
+<style>
+:root{--paper:#f3e8d3;--card:#fff7ec;--ink:#3b2f2f;--accent:#b97a20;--muted:#8b6b53;--radius:12px;}
+body{background:linear-gradient(180deg,var(--paper),#efe2c7);color:var(--ink);font-family: Georgia, "Times New Roman", Times, serif;margin:0;padding:18px;}
+.container{max-width:980px;margin:0 auto;}
+.header{display:flex;gap:14px;align-items:center;margin-bottom:16px;}
+.logo{width:76px;height:76px;border-radius:12px;background:linear-gradient(135deg,#ffe8a8,#ffd79a);display:flex;align-items:center;justify-content:center;font-weight:700;color:#5b3b1a;font-size:26px;box-shadow:0 6px 14px rgba(60,40,20,0.12);border:1px solid rgba(0,0,0,0.05);}
+.title h1{margin:0;font-size:1.6rem;}.meta{color:var(--muted);margin-top:6px;font-size:0.95rem;}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:18px;}
+.card{background:var(--card);padding:14px;border-radius:12px;box-shadow:0 8px 20px rgba(60,40,20,0.06);display:flex;gap:12px;align-items:flex-start;border:1px solid rgba(0,0,0,0.03);}
+.ill{width:120px;flex:0 0 120px;}.content{flex:1;}
+.titleCard{font-weight:700;margin-bottom:6px;color:var(--ink);}
+.excerpt{color:var(--ink);line-height:1.6;min-height:3.6em;margin-bottom:8px;font-size:1rem;}
+.controls{display:flex;gap:8px;align-items:center;}
+.btn{background:var(--accent);color:#fff;padding:8px 12px;border-radius:10px;border:none;cursor:pointer;font-family:inherit;}
+.btn.secondary{background:transparent;color:var(--ink);border:1px solid rgba(0,0,0,0.06);}
+.small{font-size:0.85rem;color:var(--muted);margin-left:auto;}
+.line{opacity:0;transform:translateY(6px);transition:opacity .36s ease, transform .36s ease;color:var(--ink);}
+.line.show{opacity:1;transform:translateY(0);}
+
+/* Map */
+.mapCard{margin-top:22px;padding:16px;border-radius:12px;background:linear-gradient(180deg,#fff3de,#f6ead0);box-shadow:0 8px 20px rgba(60,40,20,0.04);border:1px solid rgba(0,0,0,0.04);}
+.vmap{width:100%;border-radius:10px;overflow:hidden;border:1px solid rgba(0,0,0,0.06);background:linear-gradient(180deg,#efe3c9,#f7eedf);padding:10px;}
+.legend{margin-top:12px;color:var(--muted);}
+.popup{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--card);padding:14px;border-radius:12px;box-shadow:0 30px 60px rgba(30,20,10,0.25);display:none;z-index:999;border:1px solid rgba(0,0,0,0.06);max-width:92%;max-height:80%;overflow:auto;}
+.popup img{max-width:100%;height:auto;border-radius:8px;margin-bottom:8px;border:1px solid rgba(0,0,0,0.04);}
+.popup .poem{color:var(--ink);line-height:1.6;}
+.popup .close{display:inline-block;margin-top:10px;background:var(--muted);color:#fff;padding:6px 10px;border-radius:8px;border:none;cursor:pointer;}
+footer{margin-top:18px;color:var(--muted);font-size:0.95rem;}
+@media (max-width:780px){.grid{grid-template-columns:1fr} .ill{display:none}}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">XD</div>
+    <div class="title"><h1>Gallery Vintage — Thơ Xuân Diệu (Hoàn chỉnh)</h1>
+    <div class="meta">Phiên bản hoàn chỉnh: 4 trích đoạn, minh hoạ tranh vẽ, bản đồ Việt Nam vintage, popup ảnh vẽ + thơ.</div></div>
+  </div>
+
+  <div class="grid">
+    <div class="card"><div class="ill" aria-hidden><svg viewBox="0 0 120 120" width="120" height="120"><rect width="120" height="120" rx="12" fill="#fff8ef"/></svg></div>
+      <div class="content"><div class="titleCard">Vội vàng — (trích)</div><div class="excerpt" id="e1"></div>
+      <div class="controls"><button class="btn" onclick="reveal(1)">Xem thơ</button><button class="btn secondary" onclick="resetCard(1)">Đặt lại</button><div class="small">Chạm để hiện</div></div></div></div>
+
+    <div class="card"><div class="ill" aria-hidden><svg viewBox="0 0 120 120" width="120" height="120"><rect width="120" height="120" rx="12" fill="#fff6f6"/></svg></div>
+      <div class="content"><div class="titleCard">Yêu — (trích)</div><div class="excerpt" id="e2"></div>
+      <div class="controls"><button class="btn" onclick="reveal(2)">Xem thơ</button><button class="btn secondary" onclick="resetCard(2)">Đặt lại</button><div class="small">Chạm để hiện</div></div></div></div>
+
+    <div class="card"><div class="ill" aria-hidden><svg viewBox="0 0 120 120" width="120" height="120"><rect width="120" height="120" rx="12" fill="#f7fff8"/></svg></div>
+      <div class="content"><div class="titleCard">Biển — (trích)</div><div class="excerpt" id="e3"></div>
+      <div class="controls"><button class="btn" onclick="reveal(3)">Xem thơ</button><button class="btn secondary" onclick="resetCard(3)">Đặt lại</button><div class="small">Chạm để hiện</div></div></div></div>
+
+    <div class="card"><div class="ill" aria-hidden><svg viewBox="0 0 120 120" width="120" height="120"><rect width="120" height="120" rx="12" fill="#fff7ee"/></svg></div>
+      <div class="content"><div class="titleCard">Tương tư chiều — (trích)</div><div class="excerpt" id="e4"></div>
+      <div class="controls"><button class="btn" onclick="reveal(4)">Xem thơ</button><button class="btn secondary" onclick="resetCard(4)">Đặt lại</button><div class="small">Chạm để hiện</div></div></div></div>
+  </div>
+
+  <div class="mapCard">
+    <h3 class="mapTitle">Bản đồ Việt Nam — Theo dấu Xuân Diệu</h3>
+    <div class="vmap" id="vmap">
+      <!-- SVG outline of Vietnam (simplified) -->
+      <svg id="vnmap" viewBox="0 0 600 900" width="100%" height="560" xmlns="http://www.w3.org/2000/svg">
+        <rect width="600" height="900" fill="#fbf3e5"/>
+        <!-- simplified Vietnam shape (stylized, not geo-accurate) -->
+        <g transform="translate(60,20)" fill="#efe1c7" stroke="#d6b88a" stroke-width="2">
+          <path id="vietnam" d="M40 40 C60 80 80 120 80 160 C90 200 100 240 120 270 C130 300 160 320 180 350 C200 380 210 420 220 460 C230 500 230 540 240 580 C250 620 280 660 300 700 C320 740 340 760 360 780 C380 800 420 820 460 820 C500 820 520 800 540 780" />
+        </g>
+        <!-- Marker Tuy Phuoc (Binh Dinh) positioned on map -->
+        <g id="tuy" transform="translate(200,430)" style="cursor:pointer">
+          <circle r="14" fill="#ffd77a" stroke="#b97a20" stroke-width="2"></circle>
+          <text x="22" y="6" font-family="Georgia" font-size="14" fill="#6b4a2e">Tuy Phước</text>
+        </g>
+        <!-- Marker Hanoi positioned -->
+        <g id="hanoi" transform="translate(320,140)" style="cursor:pointer">
+          <rect x="-12" y="-14" width="36" height="28" rx="6" fill="#d8f0ff" stroke="#4a90c2" stroke-width="2"></rect>
+          <text x="28" y="6" font-family="Georgia" font-size="14" fill="#4a6b7a">Hà Nội</text>
+        </g>
+      </svg>
+    </div>
+    <div class="legend"><strong>Hướng dẫn</strong><p>Click vào Tuy Phước hoặc Hà Nội để xem ảnh minh hoạ vẽ và trích thơ liên quan.</p></div>
+  </div>
+
+  <footer><p>Hoàn chỉnh — tải lên GitHub Pages để tạo link công khai. Sau khi upload, quét QR sẽ mở trực tiếp.</p></footer>
+</div>
+
+<!-- Popup -->
+<div id="popup" class="popup" role="dialog" aria-hidden="true">
+  <img id="popImg" src="" alt="Artwork" />
+  <div class="poem" id="popPoem"></div>
+  <button class="close" onclick="closePopup()">Đóng</button>
+</div>
+
+<script>
+const excerpts = {
+  1: ["Tôi muốn tắt nắng đi","Cho màu đừng nhạt mất;","Tôi muốn buộc gió lại","Cho hương đừng bay đi."],
+  2: ["Yêu là chết ở trong lòng một ít,","Là vùi thây nhau một chút, hoang tàn."],
+  3: ["Biển! Tôi thương kẻ ở giữa trời biển,","Sóng về mang theo tiếng nhớ bờ xa."],
+  4: ["Chiều bỗng nhớ người như thể đã quen,","Bóng đi vội vàng trong nắng ngả nghiêng."]
+};
+
+function renderCard(id){
+  const container = document.getElementById('e'+id);
+  container.innerHTML='';
+  const lines = excerpts[id] || ['[Chưa có]'];
+  lines.forEach(()=>{const d=document.createElement('div');d.className='line';container.appendChild(d);});
+  const children = container.querySelectorAll('.line');
+  lines.forEach((ln,i)=>{children[i].textContent = ln;});
+}
+[1,2,3,4].forEach(renderCard);
+
+function reveal(id){
+  const container = document.getElementById('e'+id);
+  const lines = Array.from(container.querySelectorAll('.line'));
+  lines.forEach(l=>l.classList.remove('show'));
+  lines.forEach((l,i)=> setTimeout(()=> l.classList.add('show'), i*600));
+}
+function resetCard(id){document.querySelectorAll('#e'+id+' .line').forEach(l=>l.classList.remove('show'));}
+
+// Popup logic uses the two user images included in repo root
+const popup = document.getElementById('popup');
+const popImg = document.getElementById('popImg');
+const popPoem = document.getElementById('popPoem');
+
+function openPopup(point){
+  if(point==='tuy'){
+    popImg.src = '0007EAD3-F0F9-4E15-A13B-09E31B9D7842.jpeg';
+    popPoem.innerHTML = '<p style="margin:0 0 8px 0;"><strong>Vội vàng — (trích)</strong></p><div style="line-height:1.6;padding:6px 0;color:#3b2f2f">Tôi muốn tắt nắng đi<br>Cho màu đừng nhạt mất;<br>Tôi muốn buộc gió lại<br>Cho hương đừng bay đi.</div>';
+  } else if(point==='hanoi'){ 
+    popImg.src = '359DA75C-4CA3-4642-B3DF-CD4B56B5AA6D.jpeg';
+    popPoem.innerHTML = '<p style="margin:0 0 8px 0;"><strong>Yêu — (trích)</strong></p><div style="line-height:1.6;padding:6px 0;color:#3b2f2f">Yêu là chết ở trong lòng một ít,<br>Là vùi thây nhau một chút, hoang tàn.</div>';
+  }
+  popup.style.display='block';
+  popup.setAttribute('aria-hidden','false');
+}
+function closePopup(){popup.style.display='none';popup.setAttribute('aria-hidden','true');}
+
+// Attach click handlers
+document.addEventListener('DOMContentLoaded', ()=>{
+  document.getElementById('tuy').addEventListener('click', (e)=>{e.stopPropagation(); openPopup('tuy');});
+  document.getElementById('hanoi').addEventListener('click', (e)=>{e.stopPropagation(); openPopup('hanoi');});
+  document.addEventListener('click', (e)=>{ if(e.target === popup) closePopup(); });
+});
+</script>
+</body>
+</html>
